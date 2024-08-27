@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
+import { View, ActivityIndicator, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import LoginScreen from "../screens/Auth/LoginScreen";
 import RegisterAsPartner from "../screens/Auth/RegisterAsPartner";
 import RegisterAsClient from "../screens/Auth/RegisterAsClient";
-import HomeScreen from "../screens/HomeScreen"; // Assuming HomeScreen is already created
+import HomeScreen from "../screens/HomeScreen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import ForgotPassword from "../screens/Auth/ForgotPassword";
 import JobSearchScreen from "../screens/Auth/JobSearchScreen";
 import Notification from "../screens/Auth/Notification";
+import ChatScreen from "../screens/ChatScreen";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
-// Drawer Navigator setup
 const DrawerNavigator = () => (
   <Drawer.Navigator initialRouteName="Home">
     <Drawer.Screen
@@ -22,7 +23,7 @@ const DrawerNavigator = () => (
       component={HomeScreen}
       options={{ headerShown: false }}
     />
-     <Drawer.Screen
+    <Drawer.Screen
       name="Notification"
       component={Notification}
       options={{ headerShown: false }}
@@ -47,7 +48,11 @@ const MainStackNavigator = () => {
   }, []);
 
   if (loading) {
-    return null; // Or a loading spinner
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
   }
 
   return (
@@ -70,7 +75,7 @@ const MainStackNavigator = () => {
         />
         <Stack.Screen
           name="Home"
-          component={DrawerNavigator} // Replace HomeScreen with DrawerNavigator
+          component={DrawerNavigator}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -83,9 +88,22 @@ const MainStackNavigator = () => {
           component={JobSearchScreen}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="Chat"
+          component={ChatScreen}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
+
+const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 
 export default MainStackNavigator;

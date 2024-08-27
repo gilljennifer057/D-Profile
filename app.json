@@ -1,28 +1,23 @@
 {
   "expo": {
-    "name": "LoginDemo",
-    "slug": "LoginDemo",
+    "name": "dprofile",
+    "slug": "dprofile",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
+    "platforms": ["ios", "android"],
+    "sdkVersion": "51.0.0",
+    "entryPoint": "./node_modules/expo/AppEntry.js",
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/icon.png",
-        "backgroundColor": "#ffffff",
-        "permissions": ["INTERNET"]
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
-      "favicon": "./assets/icon.png"
+      "favicon": "./assets/favicon.png"
     }
   }
 }

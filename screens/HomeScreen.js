@@ -109,6 +109,10 @@ const HomeScreen = ({ navigation }) => {
     }
   };
 
+  const startConversation = (item) => {
+    navigation.navigate("Chat", { receiver: item });
+  };
+
   const cancelRequestService = async (service_request_id) => {
     try {
       const token = await AsyncStorage.getItem("token");
@@ -121,7 +125,7 @@ const HomeScreen = ({ navigation }) => {
         }
       );
 
-      console.log(data,"Service deleted successfully.");
+      console.log(data, "Service deleted successfully.");
       Alert.alert("Success", "Service deleted successfully.");
     } catch (error) {
       console.error("Error sending service request:", error);
@@ -144,6 +148,8 @@ const HomeScreen = ({ navigation }) => {
       };
 
       const { data } = await axios.put(url, payload, config);
+
+      getUserData();
 
       console.log(data);
     } catch (error) {
@@ -197,9 +203,22 @@ const HomeScreen = ({ navigation }) => {
                       <></>
                     )}
                     {item.partner_service_request.status == 1 ? (
-                      <TouchableOpacity style={[GlobalStyles.button]}>
-                        <Text style={GlobalStyles.buttonText}>Accepted</Text>
-                      </TouchableOpacity>
+                      <View>
+                        <TouchableOpacity style={[GlobalStyles.button]}>
+                          <Text style={GlobalStyles.buttonText}>Accepted</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          style={[
+                            GlobalStyles.button,
+                            styles.startConversationButton,
+                          ]}
+                          onPress={() => startConversation(item)}
+                        >
+                          <Text style={GlobalStyles.buttonText}>
+                            Start Conversation
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
                     ) : (
                       <></>
                     )}
@@ -207,6 +226,7 @@ const HomeScreen = ({ navigation }) => {
                       <TouchableOpacity style={[GlobalStyles.button]}>
                         <Text style={GlobalStyles.buttonText}>Blocked</Text>
                       </TouchableOpacity>
+                  
                     ) : (
                       <></>
                     )}
@@ -217,25 +237,39 @@ const HomeScreen = ({ navigation }) => {
               <>
                 <>
                   {item.is_request && item.is_request.status == 0 ? (
-                    <>
-                      <Text>
-                        <TouchableOpacity
-                          style={[GlobalStyles.button]}
-                          onPress={() => processRquestByStatusId(ACCEPT, item)}
-                        >
-                          <Text style={GlobalStyles.buttonText}>Accept</Text>
-                        </TouchableOpacity>
+                    <View style={{ flexDirection: "row", width: "100%" }}>
+                      <TouchableOpacity
+                        style={[
+                          GlobalStyles.button,
+                          { flex: 1, marginRight: 5 },
+                        ]}
+                        onPress={() => processRquestByStatusId(ACCEPT, item)}
+                      >
+                        <Text style={GlobalStyles.buttonText}>Accept</Text>
+                      </TouchableOpacity>
 
-                        <TouchableOpacity
-                          style={[GlobalStyles.button]}
-                          onPress={() => processRquestByStatusId(BLOCK, item)}
-                        >
-                          <Text style={GlobalStyles.buttonText}>Block</Text>
-                        </TouchableOpacity>
-                      </Text>
-                    </>
+                      <TouchableOpacity
+                        style={[
+                          GlobalStyles.button,
+                          { flex: 1, marginLeft: 5 },
+                        ]}
+                        onPress={() => processRquestByStatusId(BLOCK, item)}
+                      >
+                        <Text style={GlobalStyles.buttonText}>Block</Text>
+                      </TouchableOpacity>
+                    </View>
                   ) : (
-                    <></>
+                    <><TouchableOpacity
+                    style={[
+                      GlobalStyles.button,
+                      styles.startConversationButton,
+                    ]}
+                    onPress={() => startConversation(item)}
+                  >
+                    <Text style={GlobalStyles.buttonText}>
+                      Start Conversation
+                    </Text>
+                  </TouchableOpacity></>
                   )}
                 </>
 

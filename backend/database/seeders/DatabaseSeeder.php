@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
         // User::truncate();
 
         \App\Models\User::factory(1)->create([
-            // 'user_type' => "partner"
+            // 'user_type' => "partner",
+            'number' => "2222222222",
             'user_type' => "client"
 
         ]);

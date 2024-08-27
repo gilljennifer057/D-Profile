@@ -5,6 +5,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\DiaryController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ExpenseController;
@@ -33,4 +34,6 @@ Route::get("service-request-clean", [UserController::class, "clean"]);
 
 Route::get("client", [UserController::class, "Clients"]);
 Route::get("partner", [UserController::class, "Partners"]);
+
+Route::apiResource('conversations', ConversationController::class)->only(["index", "store"]);
 

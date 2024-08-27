@@ -63,6 +63,7 @@ const GlobalStyles = StyleSheet.create({
   draggableContainer: {
     marginBottom: 16,
   },
+  
 });
 
 export default GlobalStyles;
